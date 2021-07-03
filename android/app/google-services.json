@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "101640520752",
+    "project_id": "equinox-8d61f",
+    "storage_bucket": "equinox-8d61f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101640520752:android:263fd7ce20fcc1500ad9f5",
+        "android_client_info": {
+          "package_name": "com.flutterflow.equinox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101640520752-dc7no7tgccirfv71g7pb8au2pvookkro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq9JYbi-TAt1rh8x2zaAt7sdtre9KTOU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101640520752-dc7no7tgccirfv71g7pb8au2pvookkro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
