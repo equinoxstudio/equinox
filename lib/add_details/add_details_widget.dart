@@ -142,52 +142,78 @@ class _AddDetailsWidgetState extends State<AddDetailsWidget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: TextFormField(
-                              controller: textController1,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Description',
-                                hintStyle: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 14,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.primaryColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0),
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.primaryColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0),
-                                  ),
-                                ),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              ),
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                fontSize: 14,
-                              ),
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return 'Required';
-                                }
-
-                                return null;
-                              },
+                          StreamBuilder<List<Details2Record>>(
+                            stream: queryDetails2Record(
+                              singleRecord: true,
                             ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              List<Details2Record> textFieldDetails2RecordList =
+                                  snapshot.data;
+                              // Customize what your widget looks like with no query results.
+                              if (snapshot.data.isEmpty) {
+                                return Container(
+                                  height: 100,
+                                  child: Center(
+                                    child: Text('No results.'),
+                                  ),
+                                );
+                              }
+                              final textFieldDetails2Record =
+                                  textFieldDetails2RecordList.first;
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: TextFormField(
+                                  controller: textController1,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Description',
+                                    hintStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  ),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                  ),
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return 'Required';
+                                    }
+
+                                    return null;
+                                  },
+                                ),
+                              );
+                            },
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -444,18 +470,43 @@ class _AddDetailsWidgetState extends State<AddDetailsWidget> {
                     alignment: Alignment(0, 1),
                     child: InkWell(
                       onTap: () async {
+                        if (!formKey.currentState.validate()) {
+                          return;
+                        }
                         final details2RecordData = createDetails2RecordData(
-                          image: '',
-                          description: '',
-                          cost: '',
-                          tax: '',
-                          earning: '',
-                          gig: '',
-                          duedate: '',
+                          image: uploadedFileUrl,
+                          cost: textController2.text,
+                          tax: textController3.text,
+                          earning: textController4.text,
+                          gig: textController5.text,
+                          duedate: textController6.text,
+                          description: textController1.text,
                         );
                         await Details2Record.collection
                             .doc()
                             .set(details2RecordData);
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('New Project'),
+                              content: Text('Details have been saved'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderPageWidget(),
+                          ),
+                        );
                       },
                       child: Container(
                         width: double.infinity,

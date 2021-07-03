@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailsWidget extends StatefulWidget {
-  DetailsWidget({
+class ConfirmationWidget extends StatefulWidget {
+  ConfirmationWidget({
     Key key,
-    this.pendingDetails,
+    this.confirmationPage,
   }) : super(key: key);
 
-  final Details2Record pendingDetails;
+  final Details2Record confirmationPage;
 
   @override
-  _DetailsWidgetState createState() => _DetailsWidgetState();
+  _ConfirmationWidgetState createState() => _ConfirmationWidgetState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget> {
+class _ConfirmationWidgetState extends State<ConfirmationWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -316,7 +316,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       builder: (alertDialogContext) {
                         return AlertDialog(
                           title: Text('Confirm Start'),
-                          content: Text('You want to start this project?'),
+                          content: Text('You want to mark as delivered?'),
                           actions: [
                             TextButton(
                               onPressed: () =>
@@ -331,7 +331,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
                                       title: Text('Congrats'),
-                                      content: Text('Your Project has started'),
+                                      content:
+                                          Text('Your Project is completed'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>

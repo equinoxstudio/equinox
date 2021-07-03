@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailsWidget extends StatefulWidget {
-  DetailsWidget({
+class FinalWidget extends StatefulWidget {
+  FinalWidget({
     Key key,
-    this.pendingDetails,
+    this.finalJob,
   }) : super(key: key);
 
-  final Details2Record pendingDetails;
+  final Details2Record finalJob;
 
   @override
-  _DetailsWidgetState createState() => _DetailsWidgetState();
+  _FinalWidgetState createState() => _FinalWidgetState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget> {
+class _FinalWidgetState extends State<FinalWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -303,80 +303,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                   fontFamily: 'Poppins',
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment(0, 1),
-                child: InkWell(
-                  onTap: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: Text('Confirm Start'),
-                          content: Text('You want to start this project?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.pop(alertDialogContext);
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Congrats'),
-                                      content: Text('Your Project has started'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                ;
-                              },
-                              child: Text('Confirm'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OrderPageWidget(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
-                    ),
-                    child: Align(
-                      alignment: Alignment(0, 0.1),
-                      child: Text(
-                        'Status',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.primaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
             )

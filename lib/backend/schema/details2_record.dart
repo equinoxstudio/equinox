@@ -12,9 +12,6 @@ abstract class Details2Record
       _$details2RecordSerializer;
 
   @nullable
-  String get description;
-
-  @nullable
   String get cost;
 
   @nullable
@@ -33,17 +30,20 @@ abstract class Details2Record
   String get image;
 
   @nullable
+  String get description;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(Details2RecordBuilder builder) => builder
-    ..description = ''
     ..cost = ''
     ..tax = ''
     ..earning = ''
     ..gig = ''
     ..duedate = ''
-    ..image = '';
+    ..image = ''
+    ..description = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('details2');
@@ -63,21 +63,21 @@ abstract class Details2Record
 }
 
 Map<String, dynamic> createDetails2RecordData({
-  String description,
   String cost,
   String tax,
   String earning,
   String gig,
   String duedate,
   String image,
+  String description,
 }) =>
     serializers.toFirestore(
         Details2Record.serializer,
         Details2Record((d) => d
-          ..description = description
           ..cost = cost
           ..tax = tax
           ..earning = earning
           ..gig = gig
           ..duedate = duedate
-          ..image = image));
+          ..image = image
+          ..description = description));
